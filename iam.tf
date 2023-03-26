@@ -3,6 +3,7 @@ resource "aws_iam_policy" "main" {
   path        = "/"
   description = "${var.component}-${var.env}"
 
+
   policy = jsonencode({
     "Version": "2012-10-17",
     "Statement": [
