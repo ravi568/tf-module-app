@@ -1,5 +1,5 @@
 resource "aws_launch_template" "main" {
-  name = "${var.component}-{var.env}"
+  name = "${var.component}-${var.env}"
 
 
 #  iam_instance_profile {
@@ -20,7 +20,7 @@ resource "aws_launch_template" "main" {
 
     tags = merge(
       var.tags,
-      {Name = "${var.component}-{var.env}"}
+      {Name = "${var.component}-${var.env}"}
     )
   }
 
@@ -31,7 +31,7 @@ resource "aws_launch_template" "main" {
 }
 
 resource "aws_autoscaling_group" "main" {
-  name = "${var.component}-{var.env}"
+  name = "${var.component}-${var.env}"
   desired_capacity   = var.desired_capacity
   max_size           = var.max_size
   min_size           = var.min_size
@@ -44,13 +44,13 @@ resource "aws_autoscaling_group" "main" {
   tag {
     key                 = "name"
     propagate_at_launch = false
-    value               = "${var.component}-{var.env}"
+    value               = "${var.component}-${var.env}"
   }
 }
 
 resource "aws_security_group" "main" {
-  name        = "${var.component}-{var.env}"
-  description = "${var.component}-{var.env}"
+  name        = "${var.component}-${var.env}"
+  description = "${var.component}-${var.env}"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -70,6 +70,6 @@ resource "aws_security_group" "main" {
   }
   tags = merge(
     var.tags,
-    {Name = "${var.component}-{var.env}"}
+    {Name = "${var.component}-${var.env}"}
   )
 }
