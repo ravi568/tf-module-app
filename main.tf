@@ -85,7 +85,7 @@ resource "aws_security_group" "main" {
 
 resource "aws_lb_target_group" "main" {
   name     = "${var.component}-${var.env}"
-  port     = 80
+  port     = var.port
   protocol = "HTTP"
   vpc_id   = var.vpc_id
   health_check {
