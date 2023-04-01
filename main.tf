@@ -69,6 +69,13 @@ resource "aws_security_group" "main" {
     protocol    = "tcp"
     cidr_blocks = var.allow_app_to
   }
+  ingress {
+    description = "PROMETHEUS"
+    from_port   = 9100
+    to_port     = 9100
+    protocol    = "tcp"
+    cidr_blocks = var.monitoring_nodes
+  }
 
   egress {
     from_port        = 0
@@ -94,6 +101,7 @@ resource "aws_lb_target_group" "main" {
     unhealthy_threshold = 5
     interval = 5
     timeout = 4
+    path= "/health"
   }
   tags = merge(
     var.tags,
